@@ -1,0 +1,122 @@
+<View style={styles.centeredView1}>
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Dong menu");
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalMenu}>
+                <View>
+                  <Text>{this.state.currentLatitude}</Text>
+                  <Text>{this.state.currentLongitude}</Text>
+                </View>
+                <Button style={styles.button} title="Clear Location" />
+                <Button style={styles.button} title="Save Location" />
+                <Button style={styles.button} title="isTracking">
+                  {this.state.isTracking ? "Stop Stracking" : "Start Stracking"}
+                </Button>
+                <TouchableHighlight
+                  style={styles.openButton}
+                  onPress={(visible) => {
+                    this.setState({ modalVisible: !visible });
+                  }}
+                >
+                  <Text style={styles.textStyle}>Hide Menu</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
+        </View>
+        
+
+
+        <SwipeUpDown
+          itemMini={<Text>Welcom to my App</Text>} // Pass props component when collapsed
+          itemFull={<View style={styles.container}>
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Chọn Map Chưa Được Đóng");
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <RadioButton.Group
+                  onValueChange={(text) => this.setState({ value: text })}
+                  value={this.state.value}
+                >
+                  <RadioButton.Item label="Dark Style Map" value={Dark} />
+                  <RadioButton.Item label="Night Style Map" value={Night} />
+                  <RadioButton.Item label="Retro Style Map" value={Retro} />
+                  <RadioButton.Item label="Silver Style Map" value={Silver} />
+                  <RadioButton.Item
+                    label="Standard Style Map"
+                    value={Standard}
+                  />
+                  <RadioButton.Item
+                    label="Aubergine Style Map"
+                    value={Aubergine}
+                  />
+                  <TouchableHighlight
+                    style={{ ...styles.openButton, backgroundColor: "green" }}
+                    onPress={() => {
+                      this.setModalVisible(!modalVisible);
+                    }}
+                  >
+                    <Text style={styles.textStyle}>Hide Map Type </Text>
+                  </TouchableHighlight>
+                </RadioButton.Group>
+              </View>
+            </View>
+          </Modal>
+        </View>
+        <View style={styles.modalItem}>
+          <TouchableHighlight
+            style={styles.openButton}
+            onPress={() => {
+              this.setModalVisible(true);
+            }}
+          >
+            <Text style={styles.textStyle}>
+              <Image
+                style={styles.imageLocation}
+                resizeMode="cover"
+                source={{
+                  uri:
+                    "https://image.flaticon.com/icons/png/128/854/854878.png",
+                }}
+              />
+            </Text>
+          </TouchableHighlight>
+        </View>
+      </View>} 
+      
+// Pass props component when show full
+  onShowMini={() => console.log("mini")}
+  onShowFull={() => console.log("full")}
+  onMoveDown={() => console.log("down")}
+  onMoveUp={() => console.log("up")}
+  disablePressToShow={false} // Press item mini to show full
+  style={{ backgroundColor: "green" }} // style for swipe
+/>
+
+
+AsyncStorage cho arr
+
+AsyncStorage.getItem('savedIds', (err, result) => {
+  const id = [1];
+  if (result !== null) {
+    console.log('Data Found', result);
+    var newIds = JSON.parse(result).concat(id);
+    AsyncStorage.setItem('savedIds', JSON.stringify(newIds));
+  } else {
+    console.log('Data Not Found');
+    AsyncStorage.setItem('savedIds', JSON.stringify(id));
+  }
+});
